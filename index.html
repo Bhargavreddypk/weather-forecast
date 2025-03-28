@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Forecast</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-blue-100 min-h-screen p-4">
+    <div class="max-w-md mx-auto">
+        <div class="flex justify-between items-center mb-6">
+            <h1 class="text-2xl font-bold text-blue-800">
+                <i class="fas fa-cloud-sun mr-2"></i>Weather Forecast
+            </h1>
+            <div id="lastUpdated" class="text-sm text-gray-500"></div>
+        </div>
+
+        <div class="bg-white rounded-xl shadow-md p-6 mb-6">
+            <div class="relative mb-4">
+                <div class="flex">
+                    <input id="cityInput" type="text" placeholder="Search city (e.g. London, Paris)" 
+                           class="flex-grow p-3 border rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <button id="searchBtn" class="bg-blue-600 text-white p-3 rounded-r-lg">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+                <div id="suggestions" class="hidden absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 overflow-auto"></div>
+            </div>
+            
+            <button id="currentLocationBtn" class="w-full bg-green-600 hover:bg-green-700 text-white p-3 rounded-lg transition">
+                <i class="fas fa-location-arrow mr-2"></i>Use Current Location
+            </button>
+        </div>
+
+        <div id="currentWeather" class="hidden bg-white rounded-xl shadow-md p-6 mb-6 weather-card">
+            <div class="flex justify-between items-center mb-4">
+                <div>
+                    <h2 id="location" class="text-xl font-bold text-gray-800">
+                        <i class="fas fa-map-marker-alt mr-2 text-blue-500"></i>
+                        <span class="city-name"></span>
+                    </h2>
+                    <p id="currentDate" class="text-gray-600 flex items-center">
+                        <i class="fas fa-calendar-day mr-2 text-blue-400"></i>
+                        <span class="date"></span>
+                    </p>
+                </div>
+                <div id="weatherIcon" class="text-5xl"></div>
+            </div>
+            
+            <div class="flex items-center justify-center mb-6 gap-4">
+                <div id="temperature" class="text-5xl font-bold text-gray-800"></div>
+                <div>
+                    <p id="weatherDescription" class="capitalize text-gray-700"></p>
+                    <p id="feelsLike" class="text-gray-600">
+                        <i class="fas fa-temperature-low mr-1"></i>
+                        <span class="feels-like-text"></span>
+                    </p>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-3 gap-3">
+                <div class="bg-blue-50 p-3 rounded-lg text-center weather-card">
+                    <p class="text-gray-600">
+                        <i class="fas fa-wind mr-1"></i>Wind
+                    </p>
+                    <p id="windSpeed" class="font-semibold"></p>
+                </div>
+                <div class="bg-blue-50 p-3 rounded-lg text-center weather-card">
+                    <p class="text-gray-600">
+                        <i class="fas fa-tint mr-1"></i>Humidity
+                    </p>
+                    <p id="humidity" class="font-semibold"></p>
+                </div>
+                <div class="bg-blue-50 p-3 rounded-lg text-center weather-card">
+                    <p class="text-gray-600">
+                        <i class="fas fa-tachometer-alt mr-1"></i>Pressure
+                    </p>
+                    <p id="pressure" class="font-semibold"></p>
+                </div>
+            </div>
+        </div>
+
+        <h2 class="text-xl font-bold text-blue-800 mb-3 flex items-center">
+            <i class="fas fa-calendar-week mr-2"></i>5-Day Forecast
+        </h2>
+        <div id="forecast" class="grid grid-cols-1 gap-3"></div>
+
+        <div id="extraDetails" class="hidden mt-6 bg-white rounded-xl shadow-md p-6 weather-card">
+            <h3 class="text-lg font-semibold text-blue-700 mb-3 flex items-center">
+                <i class="fas fa-info-circle mr-2"></i>Additional Details
+            </h3>
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <p class="text-gray-600">
+                        <i class="fas fa-eye mr-1"></i>Visibility
+                    </p>
+                    <p id="visibility" class="font-semibold"></p>
+                </div>
+                <div>
+                    <p class="text-gray-600">
+                        <i class="fas fa-cloud mr-1"></i>Cloudiness
+                    </p>
+                    <p id="cloudiness" class="font-semibold"></p>
+                </div>
+                <div>
+                    <p class="text-gray-600">
+                        <i class="fas fa-sun mr-1"></i>Sunrise
+                    </p>
+                    <p id="sunrise" class="font-semibold"></p>
+                </div>
+                <div>
+                    <p class="text-gray-600">
+                        <i class="fas fa-moon mr-1"></i>Sunset
+                    </p>
+                    <p id="sunset" class="font-semibold"></p>
+                </div>
+            </div>
+        </div>
+
+        <div id="errorMessage" class="hidden mt-4 p-4 bg-red-100 border-l-4 border-red-500 text-red-700 rounded-lg">
+            <i class="fas fa-exclamation-triangle mr-2"></i>
+            <span class="error-text"></span>
+        </div>
+
+        <div id="loading" class="hidden text-center py-6">
+            <div class="spinner"></div>
+            <p class="mt-2 text-gray-600">Loading weather data...</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
